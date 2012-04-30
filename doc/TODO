@@ -1,0 +1,49 @@
+  Cap deploy (RISK: Infrastructure)
+
+  Homepage
+
+  Login with Omniauth (HIRISK: New tech)
+    User model
+    Register app with Twitter
+    Register app with Facebook
+
+  ICRUD Cards
+    Index
+      See Paper sketch
+    Create
+    Read
+      See Paper sketch
+    Update
+      Title with modal
+      Description with modal
+      Background with modal
+    Destroy
+      Trash button and modal confirmation
+
+  ICRUD Slides
+    Index
+      N/A, this is handled by Cards:Read
+    Create (HIGH RISK: Thumbnailing and managing assets)
+      Think about this: modal to select from uploaded images, upload and image, similar to modal used to edit card background
+    Read
+      View slide full size
+    Update
+      Description with modal
+      Rank with drag and drop
+    Destroy
+
+  Purchase stamps
+    TODO
+
+  Publish card
+    TODO
+
+  Reporting
+    Google Analytics
+    Server metrics
+      TODO
+    App metrics
+      TODO
+
+  Accounting
+    TODO
