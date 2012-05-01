@@ -35,6 +35,14 @@ link '/usr/bin/gem' do
   to '/usr/bin/gem1.9.1'
 end
 
+template '/root/.gemrc' do
+  source 'gemrc'
+end
+
+template '/home/vagrant/.gemrc' do
+  source 'gemrc'
+end
+
 #execute 'gem install passenger' do
 #  command 'gem install passenger'
 #  action :run
