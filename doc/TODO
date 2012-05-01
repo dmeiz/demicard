@@ -38,12 +38,16 @@
   Publish card
     TODO
 
-  Reporting
+  Intelligence
     Google Analytics
-    Server metrics
-      TODO
     App metrics
       TODO
+
+  Webops
+    Server metrics
+      TODO
+    Nagios/monitoring
+    Prevent root login
 
   Accounting
     TODO
