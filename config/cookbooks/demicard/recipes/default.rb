@@ -6,13 +6,23 @@
 include_recipe 'iptables'
 iptables_rule 'iptables_ssh'
 
+package 'build-essential'
+package 'libcurl4-openssl-dev'
+package 'zlib1g-dev'
 package 'ruby1.9.1'
+package 'ruby1.9.1-dev'
+package 'libopenssl-ruby1.9.1'
+package 'apache2-prefork-dev'
+package 'libapr1-dev'
+package 'libaprutil1-dev'
 package 'apache2'
 
 link '/usr/bin/ruby' do
   to '/usr/bin/ruby1.9.1'
 end
 
+# rubygems
+#
 remote_file '/home/vagrant/rubygems-1.8.24.tgz' do
   source 'http://rubyforge.org/frs/download.php/76073/rubygems-1.8.24.tgz'
   mode '0644'
@@ -43,15 +53,35 @@ template '/home/vagrant/.gemrc' do
   source 'gemrc'
 end
 
-#execute 'gem install passenger' do
-#  command 'gem install passenger'
-#  action :run
-#end
+# passenger
 #
-#execute 'passenger-install-apache2-module' do
-#  command 'passenger-install-apache2-module'
-#  action :run
-#end
+execute 'gem install passenger' do
+  command 'gem install -v 3.0.12 passenger'
+  creates '/var/lib/gems/1.9.1/gems/passenger-3.0.12/bin/passenger'
+end
+
+execute 'passenger-install-apache2-module' do
+  command 'passenger-install-apache2-module -a'
+  creates '/usr/lib/ruby/gems/1.9.1/gems/passenger-3.0.12/ext/apache2/mod_passenger.so'
+end
+
+template '/etc/apache2/mods-available/passenger.load' do
+  source 'passenger.load'
+end
+
+template '/etc/apache2/mods-available/passenger.conf' do
+  source 'passenger.conf'
+end
+
+execute 'a2enmod passenger' do
+  command 'a2enmod passenger'
+  creates '/etc/apache2/mods-enabled/passenger'
+end
+
+service "apache2" do
+  action :restart
+end
+
 #include_recipe 'openssl'
 #include_recipe 'java' 
 #include_recipe 'postgresql::server' 
