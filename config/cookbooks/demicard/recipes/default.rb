@@ -112,6 +112,21 @@ template '/home/deployer/.ssh/id_rsa.pub' do
   mode '0644'
 end
 
+template '/home/deployer/.ssh/authorized_keys' do
+  source 'deployer_ssh_authorized_keys'
+  owner 'deployer'
+  group 'deployer'
+  mode '0644'
+end
+
+# capistrano
+#
+directory '/u' do
+  mode '0755'
+  owner 'deployer'
+  group 'deployer'
+end
+
 #include_recipe 'openssl'
 #include_recipe 'java' 
 #include_recipe 'postgresql::server' 
