@@ -16,6 +16,7 @@ package 'apache2-prefork-dev'
 package 'libapr1-dev'
 package 'libaprutil1-dev'
 package 'apache2'
+package 'mysql-server-5.1'
 
 link '/usr/bin/ruby' do
   to '/usr/bin/ruby1.9.1'
