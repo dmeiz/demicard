@@ -9,8 +9,6 @@ iptables_rule 'iptables_ssh'
 package 'build-essential'
 package 'libcurl4-openssl-dev'
 package 'zlib1g-dev'
-package 'ruby1.9.1'
-package 'ruby1.9.1-dev'
 package 'libopenssl-ruby1.9.1'
 package 'apache2-prefork-dev'
 package 'libapr1-dev'
@@ -18,33 +16,29 @@ package 'libaprutil1-dev'
 package 'apache2'
 package 'mysql-server-5.1'
 package 'git-core'
+package 'libyaml-dev'
 
-link '/usr/bin/ruby' do
-  to '/usr/bin/ruby1.9.1'
-end
-
-# rubygems
+# ruby
 #
-remote_file '/home/vagrant/rubygems-1.8.24.tgz' do
-  source 'http://rubyforge.org/frs/download.php/76073/rubygems-1.8.24.tgz'
+remote_file '/home/vagrant/ruby-1.9.3-p194.tar.gz' do
+  source 'http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p194.tar.gz'
   mode '0644'
   action :create_if_missing
 end
 
-execute 'tar xzf rubygems-1.8.24.tgz' do
+execute 'tar xzf ruby-1.9.3-p194.tar.gz' do
   cwd '/home/vagrant'
-  command 'tar xzf rubygems-1.8.24.tgz'
-  creates '/home/vagrant/rubygems-1.8.24'
+  creates '/home/vagrant/ruby-1.9.3-p194'
 end
 
-execute 'ruby setup.rb' do
-  cwd '/home/vagrant/rubygems-1.8.24'
-  command 'ruby setup.rb'
-  creates '/usr/bin/gem1.9.1'
+execute './configure --prefix=/usr/local' do
+  cwd '/home/vagrant/ruby-1.9.3-p194'
+  creates '/home/vagrant/ruby-1.9.3-p194/Makefile'
 end
 
-link '/usr/bin/gem' do
-  to '/usr/bin/gem1.9.1'
+execute 'make && make install' do
+  cwd '/home/vagrant/ruby-1.9.3-p194'
+  creates '/usr/local/bin/ruby'
 end
 
 template '/root/.gemrc' do
