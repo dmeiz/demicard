@@ -6,6 +6,9 @@
 include_recipe 'iptables'
 iptables_rule 'iptables_ssh'
 
+execute 'apt-get update' do
+end
+
 package 'build-essential'
 package 'libcurl4-openssl-dev'
 package 'zlib1g-dev'
@@ -63,7 +66,7 @@ end
 
 execute 'passenger-install-apache2-module' do
   command 'passenger-install-apache2-module -a'
-  creates '/usr/lib/ruby/gems/1.9.1/gems/passenger-3.0.12/ext/apache2/mod_passenger.so'
+  creates '/usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.12/ext/apache2/mod_passenger.so'
 end
 
 template '/etc/apache2/mods-available/passenger.load' do
