@@ -18,6 +18,15 @@ test:
   pool: 5
   timeout: 5000
 
+stage:
+  adapter: mysql2
+  encoding: utf8
+  database: demicard_stage
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
 production:
   adapter: sqlite3
   database: db/production.sqlite3
