@@ -41,6 +41,11 @@ execute 'make && make install' do
   creates '/usr/local/bin/ruby'
 end
 
+execute 'gem install bundler' do
+  command 'gem install -v 1.1.3 bundler'
+  creates '/usr/lib/ruby/gems/1.9.1/gems/bundler-1.1.3/lib/bundler.rb'
+end
+
 template '/root/.gemrc' do
   source 'gemrc'
 end
