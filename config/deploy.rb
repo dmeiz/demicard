@@ -1,7 +1,9 @@
 @rails_env = ENV['RAILS_ENV'] || 'stage'
 
+ssh_options[:forward_agent] = true
+
 set :application, 'demicard'
-set :repository, 'https://dmeiz@github.com/dmeiz/demicard.git'
+set :repository, 'git@github.com:dmeiz/demicard.git'
 
 # If you have previously been relying upon the code to start, stop 
 # and restart your mongrel application, or if you rely on the database

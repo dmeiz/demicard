@@ -98,20 +98,6 @@ directory '/home/deployer/.ssh' do
   group 'deployer'
 end
 
-template '/home/deployer/.ssh/id_rsa' do
-  source 'deployer_ssh_id_rsa'
-  owner 'deployer'
-  group 'deployer'
-  mode '0600'
-end
-
-template '/home/deployer/.ssh/id_rsa.pub' do
-  source 'deployer_ssh_id_rsa_pub'
-  owner 'deployer'
-  group 'deployer'
-  mode '0644'
-end
-
 template '/home/deployer/.ssh/authorized_keys' do
   source 'deployer_ssh_authorized_keys'
   owner 'deployer'
