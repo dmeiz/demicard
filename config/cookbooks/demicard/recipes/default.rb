@@ -83,6 +83,34 @@ service "apache2" do
   action :restart
 end
 
+# deployer user
+#
+user 'deployer' do
+  home '/home/deployer'
+  shell '/bin/bash'
+  supports({:manage_home => true})
+end
+
+directory '/home/deployer/.ssh' do
+  mode '0700'
+  owner 'deployer'
+  group 'deployer'
+end
+
+template '/home/deployer/.ssh/id_rsa' do
+  source 'deployer_ssh_id_rsa'
+  owner 'deployer'
+  group 'deployer'
+  mode '0600'
+end
+
+template '/home/deployer/.ssh/id_rsa.pub' do
+  source 'deployer_ssh_id_rsa_pub'
+  owner 'deployer'
+  group 'deployer'
+  mode '0644'
+end
+
 #include_recipe 'openssl'
 #include_recipe 'java' 
 #include_recipe 'postgresql::server' 
