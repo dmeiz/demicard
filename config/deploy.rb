@@ -1,3 +1,5 @@
+require 'bundler/capistrano'
+
 @rails_env = ENV['RAILS_ENV'] || 'stage'
 
 ssh_options[:forward_agent] = true
