@@ -37,6 +37,8 @@ set :scm, :git
 
 if @rails_env == 'stage'
   server "localhost:2222", :app, :web, :db, :primary => true
+elsif @rails_env == 'production'
+  server "demicard.methodhead.com", :app, :web, :db, :primary => true
 else
   raise "Unexpected RAILS_ENV '#{@rails_env}'"
 end

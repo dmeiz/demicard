@@ -7,10 +7,10 @@ include_recipe 'iptables'
 iptables_rule 'iptables_ssh'
 iptables_rule 'iptables_http'
 
-execute 'apt-get update' do
-end
+#execute 'apt-get update' do
+#end
 
-package 'build-essential'
+# package 'build-essential'
 package 'libcurl4-openssl-dev'
 package 'zlib1g-dev'
 package 'libopenssl-ruby1.9.1'
@@ -20,28 +20,28 @@ package 'libaprutil1-dev'
 package 'apache2'
 package 'mysql-server-5.1'
 package 'git-core'
-package 'libyaml-dev'
+# package 'libyaml-dev'
 
 # ruby
 #
-remote_file '/home/vagrant/ruby-1.9.3-p194.tar.gz' do
+remote_file '/tmp/ruby-1.9.3-p194.tar.gz' do
   source 'http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p194.tar.gz'
   mode '0644'
   action :create_if_missing
 end
 
 execute 'tar xzf ruby-1.9.3-p194.tar.gz' do
-  cwd '/home/vagrant'
-  creates '/home/vagrant/ruby-1.9.3-p194'
+  cwd '/tmp'
+  creates '/tmp/ruby-1.9.3-p194'
 end
 
-execute './configure --prefix=/usr/local' do
-  cwd '/home/vagrant/ruby-1.9.3-p194'
-  creates '/home/vagrant/ruby-1.9.3-p194/Makefile'
+execute './configure --prefix=/usr/local --disable-install-doc' do
+  cwd '/tmp/ruby-1.9.3-p194'
+  creates '/tmp/ruby-1.9.3-p194/Makefile'
 end
 
 execute 'make && make install' do
-  cwd '/home/vagrant/ruby-1.9.3-p194'
+  cwd '/tmp/ruby-1.9.3-p194'
   creates '/usr/local/bin/ruby'
 end
 
@@ -54,9 +54,10 @@ template '/root/.gemrc' do
   source 'gemrc'
 end
 
-template '/home/vagrant/.gemrc' do
-  source 'gemrc'
-end
+# TODO: stage only
+# template '/tmp/.gemrc' do
+#   source 'gemrc'
+# end
 
 # passenger
 #
