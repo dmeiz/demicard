@@ -1,0 +1,19 @@
+STAGE
+
+  $ vagrant up
+  $ vagrant ssh # and add public key to vagrant account
+  $ thor demicard:bootstrap
+  $ thor demicard:provision
+  $ ssh -p 2222 deployer@locahost # and ssh git@github.com to make host known
+  $ cap deploy:setup
+  $ cap deploy
+
+PRODUCTION
+
+  With a new Linode instance running Ubuntu 10.4 at demicard.methodhead.com...
+
+  $ thor demicard:bootstrap production # you'll need to enter root password
+  $ thor demicard:provision production
+  $ ssh deployer@locahost # and ssh git@github.com to make host known
+  $ RAILS_ENV=production cap deploy:setup
+  $ RAILS_ENV=production cap deploy

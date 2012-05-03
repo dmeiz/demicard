@@ -1,16 +1,7 @@
-#execute "apt-get update" do
-#  command "apt-get update"
-#  action :run
-#end
-#
 include_recipe 'iptables'
 iptables_rule 'iptables_ssh'
 iptables_rule 'iptables_http'
 
-#execute 'apt-get update' do
-#end
-
-# package 'build-essential'
 package 'libcurl4-openssl-dev'
 package 'zlib1g-dev'
 package 'libopenssl-ruby1.9.1'
@@ -20,7 +11,7 @@ package 'libaprutil1-dev'
 package 'apache2'
 package 'mysql-server-5.1'
 package 'git-core'
-# package 'libyaml-dev'
+package 'libyaml-dev'
 
 # ruby
 #

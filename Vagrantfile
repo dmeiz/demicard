@@ -63,16 +63,7 @@ Vagrant::Config.run do |config|
   # path, and data_bags path (all relative to this Vagrantfile), and adding 
   # some recipes and/or roles.
   #
-  config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = "config/cookbooks"
-    #chef.roles_path = "../my-recipes/roles"
-    #chef.data_bags_path = "../my-recipes/data_bags"
-    chef.add_recipe "demicard"
-    #chef.add_role "web"
-  
-    # You may also specify custom JSON attributes:
-    #chef.json = { :mysql_password => "foo" }
-  end
+  # Provision using thor now (see doc/BOOTSTRAP)
 
   # Enable provisioning with chef server, specifying the chef server URL,
   # and the path to the validation key (relative to this Vagrantfile).
