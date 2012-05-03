@@ -48,8 +48,8 @@ set :user, 'deployer'
 set :branch, 'master'
 set :deploy_via, :remote_cache
 
-namespace :passenger do
-  desc "Restart Application"  
+namespace :deploy do
+  desc "Restart application"  
   task :restart do  
     run "touch #{current_path}/tmp/restart.txt"  
   end
