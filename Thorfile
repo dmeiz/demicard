@@ -4,23 +4,38 @@ class Demicard < Thor
     system %q(rsync -av -e 'ssh -p 2222' --exclude .git . deployer@localhost:/u/apps/demicard/current)
   end
 
-  desc 'bootstrap_production', 'Bootstrap production server, making it ready to provision with chef'
-  def bootstrap_production
-    #  - apt-get install dselect
-    #  - dselect update
-    #  - apt-get install build-essential libyaml-dev zlib1g-dev rsync
-    #  - cd /tmp
-    #  - wget http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p194.tar.gz
-    #  - tar xzf ruby-1.9.3-p194.tar.gz
-    #  - cd ruby-1.9.3-p194
-    #  - ./configure --prefix=/usr/local
-    #  - make && make install
-    #  - gem install --no-ri --no-rdoc chef
-    run_command('rsync -av config/chef root@demicard.methodhead.com:/tmp')
-    run_command('chef-solo -c /tmp/chef/solo.rb -j /tmp/chef/solo.json')
+  desc 'bootstrap env=stage', 'Bootstrap server'
+  def bootstrap(env = 'stage')
+    user, host, options = user_host_options(env)
+
+    # create user dan
+    #
+    run_command("scp #{options} config/chef/create_dan.sh #{user}@#{host}:/tmp")
+    run_command("ssh #{options} #{user}@#{host} 'sudo sh /tmp/create_dan.sh'")
+
+    # bootstrap for chef
+    #
+    run_command("scp #{options} config/chef/bootstrap.sh dan@#{host}:/tmp")
+    run_command("ssh #{options} #{user}@#{host} 'sudo sh /tmp/bootstrap.sh'")
+  end
+
+  desc 'provision env=stage', 'Provision server with chef'
+  def provision(env = 'stage')
+    user, host, options = user_host_options(env)
+
+    run_command(%Q(rsync -av -e "ssh #{options}" config/chef dan@#{host}:/tmp))
+    run_command("ssh #{options} dan@#{host} 'sudo chef-solo -c /tmp/chef/solo.rb -j /tmp/chef/solo.json'")
   end
 
   private
+
+  def user_host_options(env)
+    case env
+    when 'stage' then ['vagrant', 'localhost', %q(-o 'Port 2222')]
+    when 'production' then ['root', 'demicard.methodhead.com', '']
+    else raise "Unexpected env '#{env}'"
+    end
+  end
 
   def run_command(command)
     puts(command)
