@@ -5,6 +5,7 @@
 #
 include_recipe 'iptables'
 iptables_rule 'iptables_ssh'
+iptables_rule 'iptables_http'
 
 execute 'apt-get update' do
 end
