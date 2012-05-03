@@ -1,0 +1,8 @@
+<VirtualHost *:80>
+    ServerName localhost
+    DocumentRoot /u/apps/demicard/current/public
+    <Directory /u/apps/demicard/current/public>
+        Allow from all
+        Options -MultiViews
+    </Directory>
+</VirtualHost>

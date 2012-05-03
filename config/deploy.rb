@@ -45,3 +45,11 @@ set :use_sudo, false
 set :user, 'deployer'
 set :branch, 'master'
 set :deploy_via, :remote_cache
+
+namespace :passenger do
+  desc "Restart Application"  
+  task :restart do  
+    run "touch #{current_path}/tmp/restart.txt"  
+  end
+end
+

@@ -46,7 +46,7 @@ end
 
 execute 'gem install bundler' do
   command 'gem install -v 1.1.3 bundler'
-  creates '/usr/lib/ruby/gems/1.9.1/gems/bundler-1.1.3/lib/bundler.rb'
+  creates '/usr/local/lib/ruby/gems/1.9.1/gems/bundler-1.1.3/lib/bundler.rb'
 end
 
 template '/root/.gemrc' do
@@ -61,7 +61,7 @@ end
 #
 execute 'gem install passenger' do
   command 'gem install -v 3.0.12 passenger'
-  creates '/var/lib/gems/1.9.1/gems/passenger-3.0.12/bin/passenger'
+  creates '/usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.12/bin/passenger'
 end
 
 execute 'passenger-install-apache2-module' do
@@ -80,10 +80,6 @@ end
 execute 'a2enmod passenger' do
   command 'a2enmod passenger'
   creates '/etc/apache2/mods-enabled/passenger'
-end
-
-service "apache2" do
-  action :restart
 end
 
 # deployer user
@@ -115,6 +111,22 @@ directory '/u' do
   group 'deployer'
 end
 
-#include_recipe 'openssl'
-#include_recipe 'java' 
-#include_recipe 'postgresql::server' 
+# demicard apache site
+#
+template '/etc/apache2/sites-available/demicard' do
+  source 'demicard_site'
+  owner 'root'
+  group 'root'
+end
+
+execute 'a2dissite default' do
+end
+
+execute 'a2ensite demicard' do
+end
+
+# restart apache
+#
+service "apache2" do
+  action :restart
+end
