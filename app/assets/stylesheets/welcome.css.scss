@@ -1,3 +1,23 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#signin-buttons {
+  /* via http://css-tricks.com/css-sprites/ */
+  a {
+    display: block;
+    width: 150px;
+    height: 22px;
+  }
+  a:hover {
+    background-position: 0px -24px;
+  }
+  a:active {
+    background-position: 0px -48px;
+  }
+  a#signin-facebook {
+    background-image: url('signin_facebook.png');
+  }
+  a#signin-twitter {
+    background-image: url('signin_twitter.png');
+  }
+}
