@@ -23,7 +23,7 @@ class SessionsControllerTest < ControllerSpec
       user = User.find_by_omniauth_provider_and_omniauth_uid(@auth_hash['provider'], @auth_hash['uid'])
       user.wont_be_nil
 
-      session[:current_user].must_equal user
+      session[:user_id].must_equal user.id
     end
 
     it 'should find an existing user' do
@@ -36,7 +36,7 @@ class SessionsControllerTest < ControllerSpec
       assert_response :success
 
       User.count.must_equal 1
-      session[:current_user].must_equal @user
+      session[:user_id].must_equal @user.id
     end
   end
 end
