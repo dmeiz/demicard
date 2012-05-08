@@ -1,0 +1,17 @@
+          Create a card  View a card  Installed
+          -------------  -----------  ---------
+Chrome 18       X             X           X
+Safari 5        X             X           X
+IE 7                          X           X
+IE 8                          X           X
+IE 9            X             X           X
+IE 10                         X 
+Firefox 3.6                   X
+Firefox 4+5                   X
+Firefox 6+7                   X
+Firefox 8                     X
+Firefox 9                     X
+Firefox 10                    X
+Firefox 11      X             X
+Firefox 12      X             X           X
+

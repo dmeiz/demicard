@@ -1,11 +1,14 @@
-  Cap deploy (RISK: Infrastructure)
+X Cap deploy (RISK: Infrastructure)
 
   Homepage
 
   Login with Omniauth (HIRISK: New tech)
+    Home page
     User model
-    Register app with Twitter
-    Register app with Facebook
+    #current_user
+    Auth with Twitter
+    Auth with Facebook
+    Redirect to
 
   ICRUD Cards
     Index
