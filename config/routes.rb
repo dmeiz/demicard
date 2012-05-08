@@ -1,4 +1,6 @@
 Demicard::Application.routes.draw do
+  get "sessions/create"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -56,5 +58,5 @@ Demicard::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
   #
-  match '/auth/:provider/callback', to: 'welcome#authenticated'
+  match '/auth/:provider/callback', to: 'sessions#create'
 end
