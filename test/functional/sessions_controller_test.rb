@@ -27,15 +27,16 @@ class SessionsControllerTest < ControllerSpec
     end
 
     it 'should find an existing user' do
-      @user = User.create(:pr)
+      @user = FactoryGirl.create(:user)
+      @auth_hash['provider'] = @user.omniauth_provider
+      @auth_hash['uid'] = @user.omniauth_uid
+
       get :create
 
       assert_response :success
 
-      user = User.find_by_omniauth_provider_and_omniauth_uid(@auth_hash['provider'], @auth_hash['uid'])
-      user.wont_be_nil
-
-      session[:current_user].must_equal user
+      User.count.must_equal 1
+      session[:current_user].must_equal @user
     end
   end
 end
