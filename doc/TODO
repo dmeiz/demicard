@@ -9,6 +9,7 @@ X   #current_user
 X   Auth with Twitter
 X   Auth with Facebook
 X   Redirect to
+X   require_user
     Logout
 
   ICRUD Cards

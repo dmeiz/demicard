@@ -1,7 +1,8 @@
 Demicard::Application.routes.draw do
   resources :cards
 
-  get "sessions/create"
+  get 'sessions/create'
+  get 'sessions/destroy', :as => 'logout'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

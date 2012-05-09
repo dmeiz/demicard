@@ -36,4 +36,16 @@ class SessionsControllerTest < ControllerSpec
       session[:user_id].must_equal @user.id
     end
   end
+
+  describe '#destroy' do
+    it 'should log the user out' do
+      user = FactoryGirl.create(:user)
+      session[:user_id] = user
+
+      get :destroy
+
+      assert_redirected_to root_path
+      session[:user_id].must_be_nil
+    end
+  end
 end

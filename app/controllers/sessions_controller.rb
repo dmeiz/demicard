@@ -6,10 +6,8 @@ class SessionsController < ApplicationController
     redirect_to cards_path
   end
 
-=begin
   def destroy
     session[:user_id] = nil
-    redirect_to root_url, :notice => "Logged out!"
+    redirect_to root_path
   end
-=end
 end
