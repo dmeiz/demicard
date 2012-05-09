@@ -1,4 +1,6 @@
 Demicard::Application.routes.draw do
+  resources :cards
+
   get "sessions/create"
 
   # The priority is based upon order of creation:

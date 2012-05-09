@@ -18,11 +18,9 @@ class SessionsControllerTest < ControllerSpec
     it 'should create a new user' do
       get :create
 
-      assert_response :success
-
+      assert_redirected_to cards_path
       user = User.find_by_omniauth_provider_and_omniauth_uid(@auth_hash['provider'], @auth_hash['uid'])
       user.wont_be_nil
-
       session[:user_id].must_equal user.id
     end
 
@@ -33,8 +31,7 @@ class SessionsControllerTest < ControllerSpec
 
       get :create
 
-      assert_response :success
-
+      assert_redirected_to cards_path
       User.count.must_equal 1
       session[:user_id].must_equal @user.id
     end
