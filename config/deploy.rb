@@ -1,6 +1,8 @@
 require 'bundler/capistrano'
+load 'deploy/assets'
 
 @rails_env = ENV['RAILS_ENV'] || 'stage'
+@branch = ENV['BRANCH'] || 'master'
 
 ssh_options[:forward_agent] = true
 
@@ -43,9 +45,11 @@ else
   raise "Unexpected RAILS_ENV '#{@rails_env}'"
 end
 
+raise 'Can only deploy master to production!' if @rails_env == 'production' && @branch != 'master'
+set :branch, @branch
+
 set :use_sudo, false
 set :user, 'deployer'
-set :branch, 'master'
 set :deploy_via, :remote_cache
 
 namespace :deploy do

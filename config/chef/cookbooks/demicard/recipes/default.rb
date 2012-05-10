@@ -19,16 +19,19 @@ remote_file '/tmp/ruby-1.9.3-p194.tar.gz' do
   source 'http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p194.tar.gz'
   mode '0644'
   action :create_if_missing
+  not_if 'test -f /usr/local/bin/ruby' # i think /tmp files are getting cleaned up, so ruby keeps getting downloaded and built; maybe do this work in ~dan
 end
 
 execute 'tar xzf ruby-1.9.3-p194.tar.gz' do
   cwd '/tmp'
   creates '/tmp/ruby-1.9.3-p194'
+  not_if 'test -f /usr/local/bin/ruby'
 end
 
 execute './configure --prefix=/usr/local --disable-install-doc' do
   cwd '/tmp/ruby-1.9.3-p194'
   creates '/tmp/ruby-1.9.3-p194/Makefile'
+  not_if 'test -f /usr/local/bin/ruby'
 end
 
 execute 'make && make install' do
@@ -107,9 +110,10 @@ end
 # demicard apache site
 #
 template '/etc/apache2/sites-available/demicard' do
-  source 'demicard_site'
+  source 'demicard_site.erb'
   owner 'root'
   group 'root'
+  variables(:rails_env => node[:demicard][:rails_env])
 end
 
 execute 'a2dissite default' do

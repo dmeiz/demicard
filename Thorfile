@@ -24,6 +24,7 @@ class Demicard < Thor
     user, host, options = user_host_options(env)
 
     run_command(%Q(rsync -av -e "ssh #{options}" config/chef dan@#{host}:/tmp))
+    run_command(%Q(scp #{options} config/chef/solo-#{env}.json dan@#{host}:/tmp/chef/solo.json))
     run_command("ssh #{options} dan@#{host} 'sudo chef-solo -c /tmp/chef/solo.rb -j /tmp/chef/solo.json'")
   end
 
