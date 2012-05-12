@@ -1,1 +1,1 @@
-{"demicard": {"rails_env": "stage"}, "run_list": ["recipe[demicard]"]}
+{"demicard": {"rails_env": "production"}, "run_list": ["recipe[demicard]"]}

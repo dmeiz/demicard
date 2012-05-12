@@ -10,7 +10,8 @@ X   Auth with Twitter
 X   Auth with Facebook
 X   Redirect to
 X   require_user
-    Logout
+X   Logout
+    Auth failure
 
   ICRUD Cards
     Index

@@ -52,6 +52,8 @@ set :use_sudo, false
 set :user, 'deployer'
 set :deploy_via, :remote_cache
 
+after 'deploy:update_code', 'deploy:migrate'
+
 namespace :deploy do
   desc "Restart application"  
   task :restart do  
